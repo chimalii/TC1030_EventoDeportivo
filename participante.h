@@ -100,9 +100,9 @@ void Participante::calc_precio_total(){
     p_r_s = modalidades[2] -> calc_renta();
 
 
-    p_c = modalidades[0] -> calc_precio(200.0); cout << p_c << endl;
-    p_b = modalidades[1] -> calc_precio(300.0); cout << p_b << endl;
-    p_s = modalidades[2] -> calc_precio(300.0); cout << p_b << endl;
+    p_c = modalidades[0] -> calc_precio(200.0);
+    p_b = modalidades[1] -> calc_precio(300.0);
+    p_s = modalidades[2] -> calc_precio(300.0);
 
     total = p_c + p_b + p_r_b + p_s + p_r_s;
 
