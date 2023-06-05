@@ -9,6 +9,7 @@ int main(){
     inscripcion.get_edad();
     inscripcion.get_genero();
     inscripcion.get_cant_mod();
+    inscripcion.get_DID();
     inscripcion.calc_precio_total();
     inscripcion.datos_persona();
 
