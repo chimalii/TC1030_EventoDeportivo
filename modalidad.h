@@ -20,9 +20,9 @@ class Modalidad{
         void set_dist(float dist) {distancia = dist;}
         void set_num_pe(int num_pe) {num_perros = num_pe;}
 
-        virtual float calc_precio(float precio_base);
-        virtual float calc_renta();
-        virtual void imprime_info();
+        virtual float calc_precio(float precio_base) = 0;
+        virtual float calc_renta() = 0;
+        virtual void imprime_info() = 0;
 };
 
 float Modalidad::calc_precio(float precio_base){
