@@ -7,6 +7,44 @@
 #include "modalidad.h"
 using namespace std;
 
+class Perro{
+    private:
+        string nombre_perro, raza;
+        int edad_perro;
+        bool sextuple, desparacitacion;
+
+    public: 
+        Perro(): nombre_perro (""), raza (""), edad_perro (0.0), sextuple(false), desparacitacion(false) {};
+        Perro(string nom_pe, string raz, float ed_pe, bool sext, bool desp):
+            nombre_perro(nom_pe), raza(raz), edad_perro(ed_pe), sextuple(sext), desparacitacion(desp) {};
+
+        void get_datos_pe();
+        void datos_perro();
+};
+
+void Perro::get_datos_pe(){
+    cout << endl << "Sobre el PERRO, ingresa lo solicitado." << endl;
+    cout << "Nombre: "; cin >> nombre_perro;
+    cout << "Raza: "; cin >> raza; 
+    cout << "Edad: "; cin >> edad_perro;
+    cout << "Vacunacion (1 = SI / 0 = NO)" << endl; 
+    cout << "Sextuple --> "; cin >> sextuple;
+    cout << "Desparacitacion --> "; cin >> desparacitacion; cout << endl;
+}
+
+void Perro::datos_perro(){
+    cout << endl << "------------- DATOS PERRO -------------" << endl;
+    cout << "* Nombre: " << nombre_perro << endl <<
+    "* Raza: " << raza << endl <<
+    "* Edad: " << edad_perro << " meses" << endl;
+    if (sextuple == true && desparacitacion == true){ 
+        cout << "Vacunacion COMPLETA." << endl;
+    }
+    else if (sextuple == false || desparacitacion == false){
+        cout << "Vacunacion INCOMPLETA. " << endl;
+    }
+}
+
 class Participante{
     private:
         string nombre;
