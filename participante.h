@@ -1,56 +1,21 @@
-#ifndef DATOS_H
-#define DATOS_H
+#ifndef PARTICIPANTE_H
+#define PARTICIPANTE_H
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <string>
+
+#include "perro.h"
 #include "modalidad.h"
 
 using namespace std;
-
-class Perro{
-    private:
-        string nom_perro, raza;
-        int edad_perro;
-        bool sextuple, desparacitacion;
-
-    public: 
-        Perro(): nom_perro (""), raza (""), edad_perro (0.0), sextuple(false), desparacitacion(false) {};
-        Perro(string nom_pe, string raz, float ed_pe, bool sext, bool desp):
-            nom_perro(nom_pe), raza(raz), edad_perro(ed_pe), sextuple(sext), desparacitacion(desp) {};
-
-        void get_datos_pe();
-        void imp_datos_perro();
-};
-
-void Perro::get_datos_pe(){
-    cout << "\nSobre el PERRO, ingresa lo solicitado.\nNombre: "; cin >> nom_perro;
-    cout << "Raza: "; cin >> raza; 
-    cout << "Edad: "; cin >> edad_perro;
-    cout << "Vacunacion (1 = SI / 0 = NO)" 
-    << "\nSextuple --> "; cin >> sextuple;
-    cout << "Desparacitacion --> "; cin >> desparacitacion; cout << "\n";
-}
-
-void Perro::imp_datos_perro(){
-    cout <<"\n------------- DATOS PERRO -------------\n* Nombre: " << nom_perro 
-    << "\n* Raza: " << raza 
-    << "\n* Edad: " << edad_perro << " meses\n";
-    if (sextuple == true && desparacitacion == true){ 
-        cout << "Vacunacion COMPLETA.\n";
-    }
-    else if (sextuple == false || desparacitacion == false){
-        cout << "Vacunacion INCOMPLETA.\n";
-    }
-}
-
-// / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /
 
 class Participante{
     private:
         string nombre, genero, DID, num_competidor;
         int edad;
+        //Modalidad *mods[3];
         
     public:
         Participante(): nombre(""), genero(""), edad(0), DID("NA"){};
@@ -69,12 +34,12 @@ class Participante{
         //void agrega_s();
         //void agrega_perros();
         void imp_datos_persona();
-        void calc_precio_total();
+        float calc_precio_total(float);
 
 };
 
 string Participante::get_nombre(){
-    cout << "Nombre completo: ";
+    cout << "Nombre completo del participante: ";
     getline(cin >> ws, nombre);
     return nombre;
 }
@@ -115,34 +80,41 @@ bool Participante::set_DID(string _DID){
     else{return false;}
 }
 
+float Participante::calc_precio_total(float precio) {
+    if (set_DID("NA") == false) {
+        return precio * 0.8;
+    }
+    return precio;
+}
+
 void Participante::imp_datos_persona(){
     srand(time(NULL));
     int num_comp;
-    cout << endl << "----------- DATOS PERSONA -----------" << endl;
-    cout << "* Nombre: " << nombre << endl;
-    cout << "* Edad: " << edad << " anios" << endl;
-    cout << "* Genero:  " << genero << endl;
+    cout << "\n ----------- DATOS PERSONA -----------"
+    << "\n* Nombre: " << nombre
+    << "\n* Edad: " << edad << " anios"
+    << "\n* Genero:  " << genero << "\n";
     if (edad <= 18 && genero == "MASCULINO"){
-        cout << "Categoria Varonil Junior (DMJ) 14-18" << endl;}
+        cout << "Categoria Varonil Junior (DMJ) 14-18\n";}
     else if (edad <= 18 && genero == "FEMENINO"){
-        cout << "Categoria Femenil Junior (DWJ) 14-18" << endl;}
+        cout << "Categoria Femenil Junior (DWJ) 14-18\n";}
     else if (edad <= 40 && genero == "MASCULINO"){
-        cout << "Categoria Varonil Elite (DME) 19-40" << endl;}
+        cout << "Categoria Varonil Elite (DME) 19-40\n";}
     else if (edad <= 40 && genero == "FEMENINO"){
-        cout << "Categoria Femenil Elite (DWE) 19-40" << endl;}
+        cout << "Categoria Femenil Elite (DWE) 19-40\n";}
     else if (edad <= 50 && genero == "MASCULINO"){
-        cout << "Categoria Varonil Master 40 (DMM1) 40-50" << endl;}
+        cout << "Categoria Varonil Master 40 (DMM1) 40-50\n";}
     else if (edad <= 50 && genero == "FEMENINO"){
-        cout << "Categoria Femenil Master 40 (DWM1) 40-50" << endl;}
+        cout << "Categoria Femenil Master 40 (DWM1) 40-50\n";}
     else if (edad >= 51 && genero == "MASCULINO"){
-        cout << "Categoria Varonil Master +50 (DMM2)" << endl;}
+        cout << "Categoria Varonil Master +50 (DMM2)\n";}
     else if (edad >= 51 && genero == "FEMENINO"){
-        cout << "Categoria Femenil Master +50 (DMM2)" << endl;}
+        cout << "Categoria Femenil Master +50 (DMM2)\n";}
     num_comp = 1 + rand() % 1001 - 1;
-    cout << "* Numero de competidor: " << num_comp << endl;
+cout << "* Numero de competidor: " << num_comp << "\n";
     if (set_DID("NA") == false){
-        cout << "* Tu DID es: " << DID << endl;}
-    else {cout << "NO CUENTAS CON DID."<< endl;}
+        cout << "* Tu DID es: " << DID << " /// APLICA DESCUENTO 20 %\n";}
+    else {cout << "NO CUENTAS CON DID."<< "\n";}
 }
 
 #endif
