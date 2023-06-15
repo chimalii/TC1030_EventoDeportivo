@@ -1,87 +1,84 @@
-#ifndef PARTICIPANTE_H
-#define PARTICIPANTE_H
+#ifndef DATOS_H
+#define DATOS_H
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "modalidad.h"
+#include <string>
+#include "modalidad_buena.h"
+
 using namespace std;
 
 class Perro{
     private:
-        string nombre_perro, raza;
+        string nom_perro, raza;
         int edad_perro;
         bool sextuple, desparacitacion;
 
     public: 
-        Perro(): nombre_perro (""), raza (""), edad_perro (0.0), sextuple(false), desparacitacion(false) {};
+        Perro(): nom_perro (""), raza (""), edad_perro (0.0), sextuple(false), desparacitacion(false) {};
         Perro(string nom_pe, string raz, float ed_pe, bool sext, bool desp):
-            nombre_perro(nom_pe), raza(raz), edad_perro(ed_pe), sextuple(sext), desparacitacion(desp) {};
+            nom_perro(nom_pe), raza(raz), edad_perro(ed_pe), sextuple(sext), desparacitacion(desp) {};
 
         void get_datos_pe();
-        void datos_perro();
+        void imp_datos_perro();
 };
 
 void Perro::get_datos_pe(){
-    cout << endl << "Sobre el PERRO, ingresa lo solicitado." << endl;
-    cout << "Nombre: "; cin >> nombre_perro;
+    cout << "\nSobre el PERRO, ingresa lo solicitado.\nNombre: "; cin >> nom_perro;
     cout << "Raza: "; cin >> raza; 
     cout << "Edad: "; cin >> edad_perro;
-    cout << "Vacunacion (1 = SI / 0 = NO)" << endl; 
-    cout << "Sextuple --> "; cin >> sextuple;
-    cout << "Desparacitacion --> "; cin >> desparacitacion; cout << endl;
+    cout << "Vacunacion (1 = SI / 0 = NO)" 
+    << "\nSextuple --> "; cin >> sextuple;
+    cout << "Desparacitacion --> "; cin >> desparacitacion; cout << "\n";
 }
 
-void Perro::datos_perro(){
-    cout << endl << "------------- DATOS PERRO -------------" << endl;
-    cout << "* Nombre: " << nombre_perro << endl <<
-    "* Raza: " << raza << endl <<
-    "* Edad: " << edad_perro << " meses" << endl;
+void Perro::imp_datos_perro(){
+    cout <<"\n------------- DATOS PERRO -------------\n* Nombre: " << nom_perro 
+    << "\n* Raza: " << raza 
+    << "\n* Edad: " << edad_perro << " meses\n";
     if (sextuple == true && desparacitacion == true){ 
-        cout << "Vacunacion COMPLETA." << endl;
+        cout << "Vacunacion COMPLETA.\n";
     }
     else if (sextuple == false || desparacitacion == false){
-        cout << "Vacunacion INCOMPLETA. " << endl;
+        cout << "Vacunacion INCOMPLETA.\n";
     }
 }
+
+// / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /
 
 class Participante{
     private:
-        string nombre;
-        string genero;
+        string nombre, genero, DID, num_competidor;
         int edad;
-        string DID;
-        string num_competidor;
-        Modalidad *modalidades[3];
-        int modalidades_inscritas;
-        float total;
-
+        
     public:
-        Participante(): nombre(""), genero(""), edad(0){};
-        Participante(string nom, string gen, int ed);
+        Participante(): nombre(""), genero(""), edad(0), DID("NA"){};
+        Participante(string nom, string gen, int ed, string _did): 
+            nombre(nom), genero(gen), edad(ed), DID(_did){};
+        
         string get_nombre();
         string get_genero();
         int get_edad();
-        int get_cant_mod();
         string get_DID();
         
-        void datos_persona();
+        bool set_DID(string);
+        
+        //void agrega_c();
+        //void agrega_b();
+        //void agrega_s();
+        //void agrega_perros();
+        void imp_datos_persona();
         void calc_precio_total();
-        // float calc_precio_total();
 
 };
 
-Participante::Participante(string nom, string gen, int ed){
-    nombre = nom;
-    genero = gen;
-    edad = ed;
-}
-
 string Participante::get_nombre(){
     cout << "Nombre completo: ";
-    getline(cin, nombre);
+    getline(cin >> ws, nombre);
     return nombre;
 }
+
 
 string Participante::get_genero(){
     cout << "Genero (MASCULINO/FEMENINO): "; cin >> genero;
@@ -111,21 +108,14 @@ string Participante::get_DID(){
     return DID;
 }
 
-int Participante::get_cant_mod(){
-    cout << "Cuantas modalidades inscribiras: "; cin >> modalidades_inscritas;
-    return modalidades_inscritas;
+bool Participante::set_DID(string _DID){
+    if(DID == _DID){
+        return true;
+    }
+    else{return false;}
 }
 
-/*
-void Participante::agrega_modalidad(){
-    modalidades[modalidades_inscritas] = mod;
-    Modalidad *mod1 = new Correr();
-    Modalidad *mod2 = new Bicicleta();
-    Modalidad *mod3 = new Scooter();   
-}
-*/
-
-void Participante::datos_persona(){
+void Participante::imp_datos_persona(){
     srand(time(NULL));
     int num_comp;
     cout << endl << "----------- DATOS PERSONA -----------" << endl;
@@ -150,49 +140,9 @@ void Participante::datos_persona(){
         cout << "Categoria Femenil Master +50 (DMM2)" << endl;}
     num_comp = 1 + rand() % 1001 - 1;
     cout << "* Numero de competidor: " << num_comp << endl;
-    if (DID != "NA"){
+    if (set_DID("NA") == false){
         cout << "* Tu DID es: " << DID << endl;}
     else {cout << "NO CUENTAS CON DID."<< endl;}
-}
-
-void Participante::calc_precio_total(){
-    float p_c;
-    float p_b; float p_r_b;
-    float p_s; float p_r_s;
-    Modalidad *modalidades[modalidades_inscritas];
-    modalidades[0] = new Correr(4.5, 1, "Canicross");
-    modalidades[1] = new Bicicleta(4.5, 1, "Bikejoring");
-    p_r_b = modalidades[1] -> calc_renta();
-    modalidades[2] = new Scooter(4.5, 2, "Scooter");
-    p_r_s = modalidades[2] -> calc_renta();
-
-    
-    p_c = modalidades[0] -> calc_precio(200.0); 
-    p_b = modalidades[1] -> calc_precio(300.0); 
-    p_s = modalidades[2] -> calc_precio(300.0); 
-
-    if (DID != "NA"){
-        total = (p_c + p_b + p_s ) * 0.8;
-        total = total + p_r_b + p_r_s;
-    }
-    else {total = p_c + p_b + p_r_b + p_s + p_r_s;}
-    
-    modalidades[0] -> imprime_info();
-    if(DID != "NA"){
-        cout << "Costo: $" << p_c*0.8 << " pesos" << endl;  
-    }
-    else {cout << "Costo: $" << p_c << " pesos" << endl;}
-    modalidades[1] -> imprime_info();
-    if(DID != "NA"){
-        cout << "Costo: $" << (p_b*0.8) + p_r_b << " pesos" << endl;  
-    }
-    else {cout << "Costo: $" << p_b + p_r_b << " pesos" << endl;}
-    modalidades[2] -> imprime_info();
-    if(DID != "NA"){
-        cout << "Costo: $" << (p_s*0.8) + p_r_s << " pesos" << endl;  
-    }
-    else {cout << "Costo: $" << p_s + p_r_s << " pesos" << endl;}
-    cout << endl << "El costo total seran: $" << total << " pesos" << endl;
 }
 
 #endif
