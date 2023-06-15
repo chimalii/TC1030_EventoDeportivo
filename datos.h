@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
-#include "modalidad_buena.h"
+#include "modalidad.h"
 
 using namespace std;
 
