@@ -18,19 +18,19 @@ class Perro{
             nom_perro(nom_pe), raza(raz), edad_perro(ed_pe), sextuple(sext), desparacitacion(desp) {};
 
         void get_datos_pe();
-        void imp_datos_perro();
+        void muestra_perro();
 };
 
 void Perro::get_datos_pe(){
     cout << "\nSobre el PERRO, ingresa lo solicitado.\nNombre: "; getline(cin >> ws, nom_perro);
-    cout << "Raza: "; cin >> raza; 
+    cout << "Raza: "; getline(cin >> ws, raza); 
     cout << "Edad (anios): "; cin >> edad_perro;
     cout << "Vacunacion (1 = SI / 0 = NO)" 
     << "\nSextuple --> "; cin >> sextuple;
     cout << "Desparacitacion --> "; cin >> desparacitacion;
 }
 
-void Perro::imp_datos_perro(){
+void Perro::muestra_perro(){
     cout <<"\n ------------- DATOS PERRO -------------\n* Nombre: " << nom_perro 
     << "\n* Raza: " << raza 
     << "\n* Edad: " << edad_perro << " anios\n";
