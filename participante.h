@@ -15,7 +15,7 @@ class Participante{
     private:
         string nombre, genero, DID, num_competidor;
         int edad;
-        //Modalidad *mods[3];
+        bool agrego_DID = false;
         
     public:
         Participante(): nombre(""), genero(""), edad(0), DID("NA"){};
@@ -28,12 +28,9 @@ class Participante{
         string get_DID();
         
         bool set_DID(string);
+        bool set_agrego_DID();
         
-        //void agrega_c();
-        //void agrega_b();
-        //void agrega_s();
-        //void agrega_perros();
-        void imp_datos_persona();
+        void muestra_persona();
         float calc_precio_total(float);
 
 };
@@ -61,10 +58,13 @@ string Participante::get_DID(){
     int num_DID;
     cout << "Si cuentas con DID introduce tu numero de afiliacion, si no es asi escribe NA: "; cin >> DID;
     if (DID == "NA"){
-        cout << "Desea adquirirlo (SI/NO): "; cin >> ad_DID;
+        cout << "\n*.* IMPORTANTE *.*\nContar con DID te permite RANKEAR A NIVEL NACIONAL y obtener"
+        << " DESCUENTOS en los eventos de toda la temporada anual.\nTENDRIA UN COSTO ADICIONAL DE $1000.00" 
+        << "\nDesea adquirirlo (SI/NO): "; cin >> ad_DID;
         if (ad_DID == "NO"){
             return DID;}
         else if (ad_DID == "SI"){
+            agrego_DID = true;
             // Generera num aleatorio entre 100 y 9999
             num_DID = 100 + rand() % 10000 - 100;
             num_DID += 10000;
@@ -80,6 +80,10 @@ bool Participante::set_DID(string _DID){
     else{return false;}
 }
 
+bool Participante::set_agrego_DID(){
+    return agrego_DID;
+}
+
 float Participante::calc_precio_total(float precio) {
     if (set_DID("NA") == false) {
         return precio * 0.8;
@@ -87,7 +91,7 @@ float Participante::calc_precio_total(float precio) {
     return precio;
 }
 
-void Participante::imp_datos_persona(){
+void Participante::muestra_persona(){
     srand(time(NULL));
     int num_comp;
     cout << "\n ----------- DATOS PERSONA -----------"
@@ -111,7 +115,7 @@ void Participante::imp_datos_persona(){
     else if (edad >= 51 && genero == "FEMENINO"){
         cout << "Categoria Femenil Master +50 (DMM2)\n";}
     num_comp = 1 + rand() % 1001 - 1;
-cout << "* Numero de competidor: " << num_comp << "\n";
+    cout << "* Numero de competidor: " << num_comp << "\n";
     if (set_DID("NA") == false){
         cout << "* Tu DID es: " << DID << " /// APLICA DESCUENTO 20 %\n";}
     else {cout << "NO CUENTAS CON DID."<< "\n";}
